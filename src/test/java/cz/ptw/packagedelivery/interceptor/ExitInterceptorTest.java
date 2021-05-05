@@ -13,6 +13,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 
+@SuppressWarnings("SpellCheckingInspection")
 @SpringBootTest
 @DisplayName("Exit Interceptor Test")
 @ComponentScan("cz.ptw.packagedelivery.interceptor.configuration")

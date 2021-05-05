@@ -30,8 +30,8 @@ class FeeDeserializeTest {
     }
 
     @Test
-    @DisplayName("Should I Deserialize Lines From Fee File When File Is Given")
-    void shouldIDeserializeLinesFromFsileWhenFileIsGiven() {
+    @DisplayName("Should I Not Deserialize Lines From File When File Is Not Given")
+    void shouldINotDeserializeLinesFromFileWhenFileIsNotGiven() {
         final var testFile = new File("test.file");
 
         final var deserializedList = feeDeserializerService.deserialize(testFile);

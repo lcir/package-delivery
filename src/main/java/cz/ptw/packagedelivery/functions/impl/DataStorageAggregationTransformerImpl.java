@@ -55,12 +55,13 @@ public class DataStorageAggregationTransformerImpl implements DataStorageAggrega
      * @param transformedSource Map of aggregated input data
      * @return List of output string.
      */
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     @Override
     public List<String> transformToOutputStringList(final Map<Integer, Optional<SmartPackageWithPrice>> transformedSource) {
         return transformedSource
                 .entrySet()
                 .stream()
-                .filter(entry -> !entry.getValue().isEmpty())
+                .filter(entry -> entry.getValue().isPresent())
                 .sorted(Map.Entry.<Integer, Optional<SmartPackageWithPrice>>comparingByValue(
                         Comparator.comparing(o -> o.get().weight())).reversed()
                 )

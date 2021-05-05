@@ -63,8 +63,8 @@ class InputDeserializeTest {
     }
 
     @Test
-    @DisplayName("Should I Did Not Deserialize Lines From File When File Is Not Given")
-    void shouldIDidNotDeserializeLinesFromFileWhenFileIsNotGiven() {
+    @DisplayName("Should I Not Deserialize Lines From File When File Is Not Given")
+    void shouldINotDeserializeLinesFromFileWhenFileIsNotGiven() {
         final var testFile = new File("test.file");
 
         final var deserializedList = deserializerTransformer.deserialize(testFile);
