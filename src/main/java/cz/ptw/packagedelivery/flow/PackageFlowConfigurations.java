@@ -54,7 +54,7 @@ public class PackageFlowConfigurations {
     @SuppressWarnings("unchecked")
     @Bean
     public IntegrationFlow packageOutputProcessingFlow(List<SmartPackage> storage, List<Fee> feeStorage, MessageHandler outputMessageHandler, DataStorageAggregationTransformer transformer) {
-        return IntegrationFlows.fromSupplier(() -> storage, configurer -> configurer.poller(Pollers.fixedDelay(10000)))
+        return IntegrationFlows.fromSupplier(() -> storage, configurer -> configurer.poller(Pollers.fixedDelay(60000)))
                 .filter(source -> !((List<SmartPackage>) source).isEmpty())
                 .transform(source -> transformer.transformToOutputMap((List<SmartPackage>) source, feeStorage))
                 .transform(map -> transformer.transformToOutputStringList((HashMap<Integer, Optional<SmartPackageWithPrice>>) map))
