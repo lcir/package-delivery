@@ -1,11 +1,14 @@
 package cz.ptw.packagedelivery.service.impl;
 
+import cz.ptw.packagedelivery.record.Fee;
+import cz.ptw.packagedelivery.service.FeeDeserializerService;
 import cz.ptw.packagedelivery.service.FileLoadingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * Class for loading initial data to fee storage
@@ -14,6 +17,9 @@ import java.io.File;
 @Slf4j
 @RequiredArgsConstructor
 public class InitialFeeFileLoadingService implements FileLoadingService {
+
+    private final FeeDeserializerService feeDeserializerService;
+    private final List<Fee> feeStorage;
 
     /**
      * Method for loading file - method after right fetching fills fee storage
@@ -26,7 +32,7 @@ public class InitialFeeFileLoadingService implements FileLoadingService {
             log.error("Fee File " + inputFilePath + " was not found.");
         }
         else {
-            log.warn("Not implemented right now.");
+            feeStorage.addAll(feeDeserializerService.deserialize(file));
         }
     }
 }

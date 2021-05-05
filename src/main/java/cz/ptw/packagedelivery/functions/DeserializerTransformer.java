@@ -6,7 +6,7 @@ import java.io.File;
 import java.util.List;
 
 /**
- * Deserializer Transformer
+ * Data Deserializer Transformer
  */
 public interface DeserializerTransformer {
 

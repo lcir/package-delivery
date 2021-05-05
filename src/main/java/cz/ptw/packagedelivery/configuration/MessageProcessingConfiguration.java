@@ -1,5 +1,6 @@
 package cz.ptw.packagedelivery.configuration;
 
+import cz.ptw.packagedelivery.record.Fee;
 import cz.ptw.packagedelivery.record.SmartPackage;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,9 +20,15 @@ import java.util.List;
 @Configuration
 public class MessageProcessingConfiguration {
 
-    @Bean
+    @Bean("storage")
     @Scope("singleton")
     public List<SmartPackage> getStorage() {
+        return new ArrayList<>();
+    }
+
+    @Bean("feeStorage")
+    @Scope("singleton")
+    public List<Fee> getFeeStorage() {
         return new ArrayList<>();
     }
 

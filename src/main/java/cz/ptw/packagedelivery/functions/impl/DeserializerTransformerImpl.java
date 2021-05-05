@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
- * Deserializer Transformer
+ * Data Deserializer Transformer
  */
 @Slf4j
 @Component
