@@ -49,7 +49,7 @@ public class PackageFlowConfigurations {
 
     @Bean
     public IntegrationFlow packageOutputProcessingFlow(List<SmartPackage> storage, MessageHandler outputMessageHandler, DataStorageAggregationTransformer transformer) {
-        return IntegrationFlows.fromSupplier(() -> storage, configurer -> configurer.poller(Pollers.fixedDelay(10000)))
+        return IntegrationFlows.fromSupplier(() -> storage, configurer -> configurer.poller(Pollers.fixedDelay(60000)))
                 .filter(source -> !((List) source).isEmpty())
                 .transform(source -> transformer.transformToOutputMap((List<SmartPackage>) source))
                 .transform(source -> transformer.transformToOutputStringList((HashMap<Integer, Double>) source))
