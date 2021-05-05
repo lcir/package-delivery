@@ -48,3 +48,6 @@ jobs:
         with:
           name: jacoco-report
           path: target/site/jacoco/
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
