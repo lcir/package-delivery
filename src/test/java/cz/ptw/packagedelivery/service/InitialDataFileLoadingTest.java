@@ -28,7 +28,7 @@ class InitialDataFileLoadingTest {
         assert urlWithFile != null;
         initialDataFileLoadingService.fileLoading(urlWithFile.getPath());
 
-        assertEquals(5, storage.size());
+        assertEquals(6, storage.size());
     }
 
     @Test

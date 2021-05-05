@@ -2,7 +2,9 @@ package cz.ptw.packagedelivery.flow;
 
 import cz.ptw.packagedelivery.functions.DataStorageAggregationTransformer;
 import cz.ptw.packagedelivery.functions.DeserializerTransformer;
+import cz.ptw.packagedelivery.record.Fee;
 import cz.ptw.packagedelivery.record.SmartPackage;
+import cz.ptw.packagedelivery.record.SmartPackageWithPrice;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +20,7 @@ import org.springframework.messaging.support.ChannelInterceptor;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @EnableIntegration
 @Configuration
@@ -48,11 +51,11 @@ public class PackageFlowConfigurations {
     }
 
     @Bean
-    public IntegrationFlow packageOutputProcessingFlow(List<SmartPackage> storage, MessageHandler outputMessageHandler, DataStorageAggregationTransformer transformer) {
-        return IntegrationFlows.fromSupplier(() -> storage, configurer -> configurer.poller(Pollers.fixedDelay(60000)))
+    public IntegrationFlow packageOutputProcessingFlow(List<SmartPackage> storage, List<Fee> feeStorage, MessageHandler outputMessageHandler, DataStorageAggregationTransformer transformer) {
+        return IntegrationFlows.fromSupplier(() -> storage, configurer -> configurer.poller(Pollers.fixedDelay(10000)))
                 .filter(source -> !((List) source).isEmpty())
-                .transform(source -> transformer.transformToOutputMap((List<SmartPackage>) source))
-                .transform(source -> transformer.transformToOutputStringList((HashMap<Integer, Double>) source))
+                .transform(source -> transformer.transformToOutputMap((List<SmartPackage>) source, feeStorage))
+                .transform(map -> transformer.transformToOutputStringList((HashMap<Integer, Optional<SmartPackageWithPrice>>) map))
                 .split()
                 .handle(outputMessageHandler)
                 .get();

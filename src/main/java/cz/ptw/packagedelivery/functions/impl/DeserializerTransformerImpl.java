@@ -65,7 +65,7 @@ public class DeserializerTransformerImpl implements DeserializerTransformer {
                         try {
                             return this.deserialize(line);
                         } catch (SmartPackageInputFormatIsNotValidException e) {
-                            log.error(String.format("Problem with line in file %s.", inputFile.getPath()), e);
+                            log.error(String.format("Problem with line in file %s. On line %s.", inputFile.getPath(), line));
                         }
                         return null;
                     })

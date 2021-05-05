@@ -58,7 +58,7 @@ public class FeeDeserializerServiceImpl implements FeeDeserializerService {
                         try {
                             return this.deserialize(line);
                         } catch (FeeInputFormatIsNotValidException e) {
-                            log.error(String.format("Problem with line in fee file %s.", inputFile.getPath()), e);
+                            log.error(String.format("Problem with line in fee file %s. On line %s.", inputFile.getPath(), line));
                         }
                         return null;
                     })

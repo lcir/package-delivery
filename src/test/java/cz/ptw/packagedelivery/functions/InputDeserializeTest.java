@@ -59,12 +59,12 @@ class InputDeserializeTest {
         final var deserializedList = deserializerTransformer.deserialize(testFile);
         assertNotNull(deserializedList);
         assertFalse(deserializedList.isEmpty());
-        assertEquals(5, deserializedList.size());
+        assertEquals(6, deserializedList.size());
     }
 
     @Test
-    @DisplayName("Should I Deserialize Lines From File When File Is Given")
-    void shouldIDeserializeLinesFromFsileWhenFileIsGiven() {
+    @DisplayName("Should I Did Not Deserialize Lines From File When File Is Not Given")
+    void shouldIDidNotDeserializeLinesFromFileWhenFileIsNotGiven() {
         final var testFile = new File("test.file");
 
         final var deserializedList = deserializerTransformer.deserialize(testFile);

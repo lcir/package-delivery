@@ -22,6 +22,6 @@ class ApplicationArgumentTest {
     @Test
     @DisplayName("Should Fill Storage When Right Argument Is Provided.")
     void shouldFillStorageWhenRightArgumentIsProvided() {
-        assertEquals(5, storage.size());
+        assertEquals(6, storage.size());
     }
 }
