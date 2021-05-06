@@ -50,7 +50,7 @@ Format of this file must be something like this below.
 Second parameter is also absolute file path. But not for initial file, but for file with 
 Fee values.
 
-Format of this file is written below.
+Format of this file is described below.
 ```
 10 5.00
 5 2.50
@@ -83,11 +83,15 @@ docker run -it -v $PWD/src/test/resources:/file lci/package /file/inputs.txt /fi
 
 Application is Spring Boot Application with integrated Spring Integrations Flow.
 
-Application is listening for input from stdin. 
+Application during start process is fetching initial data and fee from arguments. If in files are data in invalid format, 
+are ignored and starting process is not interrupted. In loading file content are all wrong values logged to stderr.
+
+After file fetching is application listening for input from stdin. 
 This format of input si strict defined, and none another format is tolerated. Information about right format is 
 printed to screen after wrong input is detected.
 
-Also is not tolerated any wrong format in file. In loading file content are all wrong values logged to stderr.
+Application itself is every 60s is printing into stdout aggregated list of postcode + sum(weight) + sum(fee by weight).
+If fee file is empty or missing, fee values in output is zero.
 
 ### Right user input format and initial file format is
 &lt;weight: positive number, &gt;0, maximal 3 decimal places, . (dot) as decimal
