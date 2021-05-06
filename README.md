@@ -105,5 +105,6 @@ separator&gt;&lt;space&gt;&lt;fee: positive number, &gt;=0, fixed two decimals, 
 If you want exit application, you must type `quit` in stdin. 
 
 ## Improvements
+* Unification SmartPackage and SmartPackageWithPrice - is no reason to have this two records.
 * When is weight "report" printed in stdout, not completed user input is interrupted.
 * Argument priority is hardcoded, named parameter should be better.

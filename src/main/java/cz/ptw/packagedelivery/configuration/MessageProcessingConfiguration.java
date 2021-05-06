@@ -17,31 +17,60 @@ import org.springframework.messaging.support.ChannelInterceptor;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Configuration and bean initialization for main process
+ */
 @Configuration
 public class MessageProcessingConfiguration {
 
+    /**
+     * Main Data Storage
+     *
+     * @return List of Smart Packages
+     */
     @Bean("storage")
     @Scope("singleton")
     public List<SmartPackage> getStorage() {
         return new ArrayList<>();
     }
 
+    /**
+     * Fee Storage
+     *
+     * @return List of Fees
+     */
     @Bean("feeStorage")
     @Scope("singleton")
     public List<Fee> getFeeStorage() {
         return new ArrayList<>();
     }
 
+    /**
+     * Shell Input Message Source
+     *
+     * @return Stdin Message source
+     */
     @Bean
     public MessageSource<String> inputMessageSource() {
         return CharacterStreamReadingMessageSource.stdin();
     }
 
+    /**
+     * Handler for filling data into storage
+     *
+     * @param storage Injected main data storage
+     * @return Bean of Message handler
+     */
     @Bean
     public MessageHandler storeMessageHandler(final List<SmartPackage> storage) {
         return message -> storage.add((SmartPackage) message.getPayload());
     }
 
+    /**
+     * Output message handler
+     *
+     * @return StdOut message handler
+     */
     @Bean
     public MessageHandler outputMessageHandler() {
         final var stdout = CharacterStreamWritingMessageHandler.stdout();
@@ -49,12 +78,22 @@ public class MessageProcessingConfiguration {
         return stdout;
     }
 
+    /**
+     * Channel for exceptions
+     *
+     * @return Direct channel for exceptions.
+     */
     @Bean
     public MessageChannel errorChannel() {
         return MessageChannels.direct("errorChannel")
                 .get();
     }
 
+    /**
+     * Interceptor for listening of quit fraze from stdin.
+     *
+     * @return Channel Interceptor
+     */
     @Bean
     public ChannelInterceptor exitCodeChannelInterceptor() {
         return new ChannelInterceptor() {

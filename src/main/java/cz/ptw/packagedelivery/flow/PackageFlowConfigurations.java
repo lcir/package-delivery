@@ -22,11 +22,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Configuration of application flows
+ */
 @EnableIntegration
 @Configuration
 @Slf4j
 public class PackageFlowConfigurations {
 
+    /**
+     * Error handling flow
+     *
+     * @param errorChannel Injected error channel.
+     * @return Integration Flow
+     */
     @SuppressWarnings("ConstantConditions")
     @Bean
     public IntegrationFlow errorHandlingFlow(MessageChannel errorChannel) {
@@ -38,6 +47,15 @@ public class PackageFlowConfigurations {
                 .get();
     }
 
+    /**
+     * Flow for store processing user input data.
+     *
+     * @param inputMessageSource         Input message source
+     * @param storeMessageHandler        Handler for storing main data
+     * @param deserializerTransformer    transformer for deserialization data from stdin format
+     * @param exitCodeChannelInterceptor interceptor, catching "quit" keyword
+     * @return Integration Flow
+     */
     @Bean
     public IntegrationFlow packageStoreProcessingFlow(MessageSource<String> inputMessageSource,
                                                       MessageHandler storeMessageHandler,
@@ -51,6 +69,15 @@ public class PackageFlowConfigurations {
                 .get();
     }
 
+    /**
+     * Package output flow, which is aggregated and printing data into stdout.
+     *
+     * @param storage              Main data storage.
+     * @param feeStorage           Fee Data storage
+     * @param outputMessageHandler Handler for printing data into stdout.
+     * @param transformer          Aggregation transformer of data
+     * @return Integration Flow
+     */
     @SuppressWarnings("unchecked")
     @Bean
     public IntegrationFlow packageOutputProcessingFlow(List<SmartPackage> storage, List<Fee> feeStorage, MessageHandler outputMessageHandler, DataStorageAggregationTransformer transformer) {
