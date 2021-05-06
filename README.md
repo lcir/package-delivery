@@ -79,7 +79,7 @@ If you need to use files, you must map volumes with your files and run command w
 docker run -it -v $PWD/src/test/resources:/file lci/package /file/inputs.txt /file/fee.txt
 ```
 
-## Use instructions
+## Usage instructions
 
 Application is Spring Boot Application with integrated Spring Integrations Flow.
 
